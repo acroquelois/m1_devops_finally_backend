@@ -26,8 +26,8 @@ jobs:
           DATABASE_URL: postgresql://circleci:somePwd@localhost:5432/mydb
       - image: circleci/postgres:9.6.5
         environment:
-          POSTGRES_DB: circleci
-          POSTGRES_USER: myUser
+          POSTGRES_DB: mydb
+          POSTGRES_USER: circleci
           POSTGRES_PASSWORD: somePwd
     steps:
       - checkout
