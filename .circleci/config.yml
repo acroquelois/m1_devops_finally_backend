@@ -10,7 +10,7 @@ jobs:
           POSTGRES_PASSWORD: psqlpassword
     steps:
       - checkout
-      - restore_cache:
+      - restore_scache:
           keys: dependencies-env
       - run:
           name: install dependencies
@@ -22,7 +22,7 @@ jobs:
       - save_cache:
           key: dependencies-env
           paths:
-            - ./env
+            - ./venv
   initialise:
     docker:
       - image: circleci/python:3.7.4
