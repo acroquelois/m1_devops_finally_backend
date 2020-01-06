@@ -41,7 +41,7 @@ jobs:
       - run:
           name: initialise db
           command: |
-            . venv/bin/activate
+            . ./venv/bin/activate
             flask db init
 
 workflows:
