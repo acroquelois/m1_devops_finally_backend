@@ -36,12 +36,12 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - dependencies-{{ checksum "requirements.txt" }}
-            - dependencies-
+            - v1-dependencies-{{ checksum "requirements.txt" }}
+            - v1-dependencies-
       - run:
           name: initialise db
           command: |
-            . ./venv/bin/activate
+            . venv/bin/activate
             flask db init
 
 workflows:
