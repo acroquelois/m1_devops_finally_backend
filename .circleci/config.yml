@@ -34,15 +34,10 @@ jobs:
             - v1-dependencies-{{ checksum "requirements.txt" }}
             - v1-dependencies-
       - run:
-        name: gunicorn
-        command: |
-          . venv/bin/activate
-          gunicorn autoapp:app -b 0.0.0.0:$5432 -w 3
-
-      - run:
           name: initialise db
           command: |
             . venv/bin/activate
+            gunicorn autoapp:app -b 0.0.0.0:$5432 -w 3
             flask db migrate
             flask db upgrade
 
