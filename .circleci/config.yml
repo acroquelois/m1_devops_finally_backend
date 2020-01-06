@@ -24,9 +24,8 @@ jobs:
       - image: circleci/python:3.7.4
       - image: circleci/postgres:9.6.5
         environment:
-          POSTGRES_DB: psqluser
-          POSTGRES_USER: psqluser
-          POSTGRES_PASSWORD: psqlpassword
+          POSTGRES_USER: myUsr
+          POSTGRES_PASSWORD: somePwd
     steps:
       - checkout
       - restore_cache:
@@ -37,7 +36,6 @@ jobs:
           name: initialise db
           command: |
             . venv/bin/activate
-            gunicorn autoapp:app -b 172.0.0.1:$5432 -w 3
             flask db migrate
             flask db upgrade
 
