@@ -10,7 +10,7 @@ jobs:
           POSTGRES_PASSWORD: psqlpassword
     steps:
       - checkout
-      - restore_scache:
+      - restore_cache:
           keys: dependencies-env
       - run:
           name: install dependencies
