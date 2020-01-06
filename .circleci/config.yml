@@ -1,11 +1,17 @@
 version: 2
 jobs:
-  build:
+  back:
     docker:
       - image: circleci/python:3.7.4
+      - image: circleci/postgres:9.6.5
+        environment:
+          POSTGRES_DB: psqluer
+          POSTGRES_USER: psqluer
+          POSTGRES_PASSWORD: psqlpassword
     steps:
       - checkout
       - run: pip install -r requirements/dev.txt
+      - run: flask db init
 workflows:
   version: 2
   build_circleci:
