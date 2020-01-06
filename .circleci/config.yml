@@ -37,6 +37,7 @@ jobs:
             . venv/bin/activate
             sleep 1
             flask db upgrade
+            sleep 1
             flask test
 workflows:
   version: 2
