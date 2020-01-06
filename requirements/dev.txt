@@ -2,7 +2,6 @@
 -r prod.txt
 
 # Testing
-pytest
 WebTest
 factory-boy
 # For python 3
