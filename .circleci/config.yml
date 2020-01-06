@@ -42,7 +42,8 @@ jobs:
           name: initialise db
           command: |
             . venv/bin/activate
-            flask db init
+            flask db migrate
+            flask db upgrade
 
 workflows:
   version: 2
