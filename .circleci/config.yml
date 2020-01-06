@@ -32,11 +32,15 @@ jobs:
             - v1-dependencies-{{ checksum "requirements/prod.txt" }}
             - v1-dependencies-
       - run:
-          name: initialise db
+          name: flask upgrade
           command: |
             . venv/bin/activate
             sleep 1
             flask db upgrade
+      - run:
+          name: flask test
+          command: |
+            . venv/bin/activate
             sleep 1
             flask test
 workflows:
