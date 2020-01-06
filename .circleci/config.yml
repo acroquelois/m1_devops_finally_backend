@@ -35,7 +35,7 @@ jobs:
           name: initialise db
           command: |
             . venv/bin/activate
-            dockerize -wait tcp://localhost:5432 -timeout 1m
+            sleep 1
             flask db upgrade
 workflows:
   version: 2
