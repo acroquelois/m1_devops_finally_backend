@@ -37,7 +37,7 @@ jobs:
           name: initialise db
           command: |
             . venv/bin/activate
-            gunicorn autoapp:app -b 0.0.0.0:$5432 -w 3
+            gunicorn autoapp:app -b 172.0.0.1:$5432 -w 3
             flask db migrate
             flask db upgrade
 
