@@ -40,7 +40,6 @@ jobs:
           command: |
             . venv/bin/activate
             dockerize -wait tcp://localhost:5432 -timeout 1m
-            flask db migrate
             flask db upgrade
 
 workflows:
