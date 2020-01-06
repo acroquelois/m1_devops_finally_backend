@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  back:
+  build:
     docker:
       - image: circleci/python:3.7.4
       - image: circleci/postgres:9.6.5
@@ -10,10 +10,16 @@ jobs:
           POSTGRES_PASSWORD: psqlpassword
     steps:
       - checkout
-      - run: pip install -r requirements/dev.txt --user
-      - run: flask db init
+      - run:
+        name: install dependencies
+        command: |
+          mkdir -p ./venv
+          virtualenv ./venv
+          . venv/bin/activate
+          pip install -r requirements.txt --user
+          flask db init
 workflows:
   version: 2
   build_circleci:
     jobs:
-      - back
+      - build
