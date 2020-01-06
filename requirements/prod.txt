@@ -1,6 +1,5 @@
 # Everything needed in production
 
-pytest
 Werkzeug
 SQLAlchemy==1.1.9
 Flask_Caching
