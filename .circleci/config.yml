@@ -12,10 +12,10 @@ jobs:
       - run:
           name: install dependencies
           command: |
-          mkdir -p ./venv
-          virtualenv ./venv
-          . venv/bin/activate
-          pip install -r requirements.txt
+            mkdir -p ./venv
+            virtualenv ./venv
+            . venv/bin/activate
+            pip install -r requirements.txt
       - save_cache:
           paths:
             - ./venv
