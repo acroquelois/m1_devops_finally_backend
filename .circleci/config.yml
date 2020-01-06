@@ -38,7 +38,7 @@ jobs:
       - run:
           name: initialise db
           command: |
-          flask db init
+            flask db init
 
 workflows:
   version: 2
