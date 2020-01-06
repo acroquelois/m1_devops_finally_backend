@@ -11,7 +11,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys: dependencies-env
+          keys: dependencies-env
       - run:
           name: install dependencies
           command: |
@@ -34,7 +34,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys: dependencies-env
+          keys: dependencies-env
       - run:
           name: initialise db
           command: |
