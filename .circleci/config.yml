@@ -11,7 +11,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: dependencies-env
+          keys: dependencies-{{ checksum "requirements.txt" }}
       - run:
           name: install dependencies
           command: |
@@ -34,10 +34,13 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: dependencies-env
+          keys:
+            - dependencies-{{ checksum "requirements.txt" }}
+            - dependencies-
       - run:
           name: initialise db
           command: |
+            . venv/bin/activate
             flask db init
 
 workflows:
