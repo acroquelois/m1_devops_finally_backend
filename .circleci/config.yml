@@ -41,6 +41,7 @@ jobs:
             . venv/bin/activate
             dockerize -wait tcp://localhost:5432 -timeout 1m
             flask db upgrade
+            flask test
 
 workflows:
   version: 2
