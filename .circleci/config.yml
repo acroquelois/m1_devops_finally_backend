@@ -67,3 +67,7 @@ workflows:
       - initialise:
           requires:
             - build
+      - back-deploy-heroku:
+          requires:
+            - build
+            - initialise
