@@ -70,9 +70,6 @@ jobs:
           name: Heroku Deploy
           command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
       - run:
-          name: Heroku db upgrade
-          command: heroku run flask db upgrade
-      - run:
           name: Smoke Test
           command: |
             HTTPCODE=`curl -s -o /dev/null -w "%{http_code}" https://$HEROKU_APP_NAME.herokuapp.com/api/articles`
