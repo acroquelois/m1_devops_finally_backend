@@ -43,22 +43,24 @@ jobs:
             . venv/bin/activate
             sleep 1
             flask test
-  back-deploy-heroku:
+  docker-build-and-push:
     docker:
-      - image: buildpack-deps:trusty
+      - image: docker:17.05.0-ce-git
     steps:
       - checkout
+      - setup_remote_docker
       - run:
-          name: Heroku Deploy
-          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
-      - run:
-          name: Smoke Test
+          name: Build application Docker image
           command: |
-            HTTPCODE=`curl -s -o /dev/null -w "%{http_code}" https://$HEROKU_APP_NAME.herokuapp.com/api/articles`
-            if [ "$HTTPCODE" -ne 200 ];then
-              echo "heroku app not responding, failing deploy"
-              exit 1
-            fi
+            docker build --cache-from=app -t app .
+      - deploy:
+          name: Publish application to docker hub
+          command: |
+            docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
+            docker tag app $DOCKER_HUB_USER_ID/my-python-app:$CIRCLE_BUILD_NUM
+            docker tag app $DOCKER_HUB_USER_ID/my-python-app:latest
+            docker push $DOCKER_HUB_USER_ID/my-python-app:$CIRCLE_BUILD_NUM
+            docker push $DOCKER_HUB_USER_ID/my-python-app:latest
 workflows:
   version: 2
   build_circleci:
@@ -67,7 +69,7 @@ workflows:
       - initialise:
           requires:
             - build
-      - back-deploy-heroku:
+      - docker-build-and-push:
           requires:
             - build
             - initialise
