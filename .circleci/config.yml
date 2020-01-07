@@ -90,5 +90,7 @@ workflows:
             - build
       - docker-build-and-push:
           requires:
-            - build
             - initialise
+      - back-deploy-heroku:
+          requires:
+            - docker-build-and-push
