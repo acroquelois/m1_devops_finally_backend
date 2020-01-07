@@ -61,6 +61,24 @@ jobs:
             docker tag app $DOCKER_HUB_USER_ID/my-python-app:latest
             docker push $DOCKER_HUB_USER_ID/my-python-app:$CIRCLE_BUILD_NUM
             docker push $DOCKER_HUB_USER_ID/my-python-app:latest
+  back-deploy-heroku:
+    docker:
+      - image: buildpack-deps:trusty
+    steps:
+      - checkout
+      - run:
+          name: Heroku Deploy
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+            heroku run flask db upgrade
+      - run:
+          name: Smoke Test
+          command: |
+            HTTPCODE=`curl -s -o /dev/null -w "%{http_code}" https://$HEROKU_APP_NAME.herokuapp.com/api/articles`
+            if [ "$HTTPCODE" -ne 200 ];then
+              echo "heroku app not responding, failing deploy"
+              exit 1
+            fi
 workflows:
   version: 2
   build_circleci:
