@@ -25,6 +25,7 @@ class Config(object):
         'http://localhost:4200',
         'http://0.0.0.0:4000',
         'http://localhost:4000',
+        'https://blissful-tereshkova-213f71.netlify.com/'
     ]
     JWT_HEADER_TYPE = 'Token'
 
